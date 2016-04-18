@@ -1,0 +1,33 @@
+SpriteSheet.png
+size: 40, 10
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+SpriteSheet1
+  rotate: false
+  xy: 1, 1
+  size: 8, 8
+  orig: 8, 16
+  offset: 0, 0
+  index: -1
+SpriteSheet2
+  rotate: false
+  xy: 11, 1
+  size: 8, 8
+  orig: 8, 16
+  offset: 0, 0
+  index: -1
+SpriteSheet4
+  rotate: false
+  xy: 21, 1
+  size: 8, 8
+  orig: 8, 16
+  offset: 0, 0
+  index: -1
+SpriteSheet5
+  rotate: false
+  xy: 31, 1
+  size: 8, 8
+  orig: 8, 16
+  offset: 0, 0
+  index: -1
