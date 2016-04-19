@@ -1,1 +1,1 @@
-# FantasyShop is a game idea, currently in progress, made by two people named Philip and Xander.
+# GIT CLONE MD
