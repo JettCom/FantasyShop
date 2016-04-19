@@ -20,12 +20,12 @@ public class GameScreen implements Screen{
 	public GameScreen(){
 		batcher = new SpriteBatch();
 		
-		exampleSprites = new Sprite[6];
-		exampleSprites[1] = new Sprite(); exampleSprites[1].setTexture(new Texture(Gdx.files.internal("SpriteSheet1.png")));
-		exampleSprites[2] = new Sprite(); exampleSprites[2].setTexture(new Texture(Gdx.files.internal("SpriteSheet2.png")));
-		exampleSprites[3] = new Sprite(); exampleSprites[3].setTexture(new Texture(Gdx.files.internal("SpriteSheet3.png")));
-		exampleSprites[4] = new Sprite(); exampleSprites[4].setTexture(new Texture(Gdx.files.internal("SpriteSheet4.png")));
-		exampleSprites[5] = new Sprite(); exampleSprites[5].setTexture(new Texture(Gdx.files.internal("SpriteSheet5.png")));
+		exampleSprites = new Sprite[5];
+		exampleSprites[0] = new Sprite(); exampleSprites[0].setTexture(new Texture(Gdx.files.internal("SpriteSheet1.png")));
+		exampleSprites[1] = new Sprite(); exampleSprites[1].setTexture(new Texture(Gdx.files.internal("SpriteSheet2.png")));
+		exampleSprites[2] = new Sprite(); exampleSprites[2].setTexture(new Texture(Gdx.files.internal("SpriteSheet3.png")));
+		exampleSprites[3] = new Sprite(); exampleSprites[3].setTexture(new Texture(Gdx.files.internal("SpriteSheet4.png")));
+		exampleSprites[4] = new Sprite(); exampleSprites[4].setTexture(new Texture(Gdx.files.internal("SpriteSheet5.png")));
 		
 		cam = new OrthographicCamera(16*10,9*10);
 		batcher.setProjectionMatrix(cam.combined);
@@ -41,11 +41,11 @@ public class GameScreen implements Screen{
 	public void render(float delta) {
 		Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.graphics.getGL20().glClearColor(0.8f, 0.8f, 1, 1);
-		frameIndex += delta;
+		frameIndex += delta*3;
 		batcher.begin();
 		batcher.draw(exampleSprites[(int)frameIndex].getTexture(), 0,0);
 		batcher.end();
-		if((int)frameIndex >= 4)
+		if(frameIndex >= 3.8f)
 			frameIndex = 0;
 	}
 

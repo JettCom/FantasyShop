@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 1280;
 		config.height = 720;
-		config.title = "Fur Phil";
+		config.title = "Fantasy Adventure Game";
 		config.resizable = true;
 		new LwjglApplication(new Main(), config);
 	}
