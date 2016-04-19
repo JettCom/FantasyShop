@@ -2,25 +2,23 @@ package com.jett.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.utils.Array;
 
 public class GameScreen implements Screen{
 	
-	private OrthographicCamera camera = new OrthographicCamera(16*10,9*10);
-	private TextureAtlas exampleSpriteSheet = new TextureAtlas(Gdx.files.internal("spriteSheet.txt"));
-	private Array<Sprite> playerSpriteSheet = exampleSpriteSheet.createSprites("exampleSpriteSheet");
-	private SpriteBatch batcher = new SpriteBatch();
+	public Sprite[] testAnim;
+	public SpriteBatch batcher;
+	
 	public float frameIndex;
 	
 	public GameScreen(){
-		for(int i = 0; i < playerSpriteSheet.size; i++){
-			playerSpriteSheet.get(i).setSize(1,1);
+		batcher = new SpriteBatch();
+		testAnim = new Sprite[4];
+		for(int i = 0; i < 4; i++){
+			testAnim[i].setTexture(new Texture(Gdx.files.internal("SpriteSheet"+(i+1)+".png")));
 		}
-		batcher.setProjectionMatrix(camera.combined);
 	}
 	
 	@Override
@@ -33,7 +31,7 @@ public class GameScreen implements Screen{
 	public void render(float delta) {
 		frameIndex += delta;
 		batcher.begin();
-		batcher.draw(playerSpriteSheet.get((int)frameIndex).getTexture(), 100, 100);
+		batcher.draw(testAnim[(int)frameIndex],0,0);
 		batcher.end();
 	}
 
