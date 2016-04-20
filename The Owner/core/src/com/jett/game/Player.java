@@ -4,31 +4,32 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class Player {
 	
-	public SpriteBatch batcher; 
-	public Sprite[] playerSprites;
+	public SpriteBatch batcher;
+	public Sprite sprite;
 	
-	public int frameIndex;
+	public Vector2 pos;
+	public Vector2 spd;
 	
-	public Player(){
+	public Player(float x, float y){
 		batcher = new SpriteBatch();
-		playerSprites = new Sprite[5];
-		playerSprites[0] = new Sprite(); playerSprites[0].setTexture(new Texture(Gdx.files.internal("SpriteSheet1.png")));
-		playerSprites[1] = new Sprite(); playerSprites[1].setTexture(new Texture(Gdx.files.internal("SpriteSheet2.png")));
-		playerSprites[2] = new Sprite(); playerSprites[2].setTexture(new Texture(Gdx.files.internal("SpriteSheet3.png")));
-		playerSprites[3] = new Sprite(); playerSprites[3].setTexture(new Texture(Gdx.files.internal("SpriteSheet4.png")));
-		playerSprites[4] = new Sprite(); playerSprites[4].setTexture(new Texture(Gdx.files.internal("SpriteSheet5.png")));
-		
+		sprite = new Sprite(new Texture(Gdx.files.internal("SpriteSheet1.png")));
+		sprite.flip(true, false);
+		pos = new Vector2(x, y);
+		spd = new Vector2();
 	}
 	
-	public void logic(){
-		
+	public void logic(float delta){
+		pos.add(spd);
 	}
 	
 	public void render(){
-		
+		batcher.begin();
+		batcher.draw(sprite, pos.x, pos.y);
+		batcher.end();
 	}
 	
 }
