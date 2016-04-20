@@ -20,8 +20,8 @@ public abstract class Customer{
 	
 	public boolean hasPayed;
 	
-	public Vector3 pos;
-	public Vector3 spd;
+	public Vector3 pos = new Vector3();
+	public Vector3 spd = new Vector3();
 	
 	public float delta;
 	
@@ -32,12 +32,12 @@ public abstract class Customer{
 		batcher = new SpriteBatch();
 		pos.x = x;
 		pos.y = y;
-		while(true){
+		/*while(true){
 			render();
 			logic();
 			if(CURRENT_STATE == LEAVING)
 				break;
-		}
+		}*/
 	}
 	
 	public void init(){
@@ -46,14 +46,14 @@ public abstract class Customer{
 	
 	public void render(){
 		batcher.begin();
-		batcher.draw(texture.get((int)frameIndex),pos.x,pos.y);
+		batcher.draw(textures.get((int)frameIndex),pos.x,pos.y);
 		batcher.end();
 	}
 	
 	public void logic(){
 		pos.add(spd);
 		if(!hasPayed){
-			if(pos.x >= 60){
+			if(pos.x >= -25){
 				CURRENT_STATE = WALKING;
 			}
 			else{
@@ -64,7 +64,7 @@ public abstract class Customer{
 			CURRENT_STATE = LEAVING;
 		}
 		if(CURRENT_STATE == WALKING){
-			spd.x = -1;
+			spd.x = -0.1f;
 			frameIndex += delta*3;
 			if(frameIndex >= 3.8f){
 				frameIndex = 0;
@@ -75,7 +75,7 @@ public abstract class Customer{
 			if(frameIndex < 5){
 				frameIndex = 5;
 			}
-			if(frameIndex >= 6.9){
+			if(frameIndex >= 5.9){
 				frameIndex = 5;
 			}
 		}

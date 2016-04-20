@@ -19,14 +19,4 @@ public class DwarfScythe extends Customer{
 		textures.add(new Texture(Gdx.files.internal("Scythe6.png")));
 	}
 	
-	@Override
-	public void render(){
-		
-	}
-	
-	@Override 
-	public void logic(){
-		
-	}
-	
 }

@@ -17,9 +17,11 @@ public class GameScreen implements Screen{
 	public SpriteBatch mainBatch;
 	
 	public Array<Sprite> fireSprites;
-	public Sprite bartableSprite;
+	public static Sprite bartableSprite;
 	
 	public float fireSpriteIndex;
+	
+	public Customer customer;
 	
 	public GameScreen(){
 		mainBatch = new SpriteBatch();
@@ -36,15 +38,24 @@ public class GameScreen implements Screen{
 		fireSprites.add(new Sprite(new Texture(Gdx.files.internal("Fire6.png"))));
 		fireSprites.add(new Sprite(new Texture(Gdx.files.internal("Fire7.png"))));
 		mainBatch.setProjectionMatrix(cam.combined);
+		customer = new DwarfScythe(80, 0);
+		customer.batcher.setProjectionMatrix(cam.combined);
 	}
 
 	@Override
 	public void render(float delta) {
+		Gdx.app.log("Customer position.x: ", ""+customer.pos.x);
+		Gdx.app.log("Current customer state: ", ""+customer.CURRENT_STATE);
+		Gdx.app.log("Current customer paying status: ", ""+customer.hasPayed);
+		Gdx.app.log("Current customer frameIndex: ", ""+customer.frameIndex);
 		Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.graphics.getGL20().glClearColor(0.1f, 0.1f, 0.05f, 1);
 		player.render();
 		player.logic(delta);
 		fireSpriteIndex += delta*5;
+		customer.delta = delta;
+		customer.render();
+		customer.logic();
 		mainBatch.begin();
 		mainBatch.draw(bartableSprite, -48, 0);
 		mainBatch.draw(fireSprites.get((int)fireSpriteIndex), 0, 0);
