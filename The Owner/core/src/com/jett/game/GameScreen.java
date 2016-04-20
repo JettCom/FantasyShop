@@ -17,6 +17,7 @@ public class GameScreen implements Screen{
 	public SpriteBatch mainBatch;
 	
 	public Array<Sprite> fireSprites;
+	public Sprite bartableSprite;
 	
 	public float fireSpriteIndex;
 	
@@ -25,6 +26,7 @@ public class GameScreen implements Screen{
 		player = new Player(-50,0);
 		cam = new OrthographicCamera(16*10,9*10);
 		player.batcher.setProjectionMatrix(cam.combined);
+		bartableSprite = new Sprite(new Texture(Gdx.files.internal("Bartable.png")));
 		fireSprites = new Array<Sprite>();
 		fireSprites.add(new Sprite(new Texture(Gdx.files.internal("Fire1.png"))));
 		fireSprites.add(new Sprite(new Texture(Gdx.files.internal("Fire2.png"))));
@@ -39,11 +41,12 @@ public class GameScreen implements Screen{
 	@Override
 	public void render(float delta) {
 		Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Gdx.graphics.getGL20().glClearColor(0.8f, 0.8f, 1, 1);
+		Gdx.graphics.getGL20().glClearColor(0.1f, 0.1f, 0.05f, 1);
 		player.render();
 		player.logic(delta);
 		fireSpriteIndex += delta*5;
 		mainBatch.begin();
+		mainBatch.draw(bartableSprite, -48, 0);
 		mainBatch.draw(fireSprites.get((int)fireSpriteIndex), 0, 0);
 		mainBatch.end();
 		if(fireSpriteIndex >= 6.5f)
