@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
-public abstract class Customer {
+public abstract class Customer{
 	
 	public ArrayList<Texture> texture;
 	public SpriteBatch batcher;
@@ -16,18 +16,32 @@ public abstract class Customer {
 	public static final int WALKING = 1;
 	public static final int TALKING = 2;
 	public static final int LEAVING = 3;
-	public static int CURRENT_FRAME;
+	public static int CURRENT_STATE;
+	
+	public boolean hasPayed;
 	
 	public Vector3 pos;
 	public Vector3 spd;
 	
-	public Customer(Texture[] textures, float x, float y){
+	public float delta;
+	
+	public ArrayList<Texture> textures = new ArrayList<Texture>();
+	
+	public Customer(float x, float y){
+		init();
 		batcher = new SpriteBatch();
 		pos.x = x;
 		pos.y = y;
-		for(int j = 0; j < textures.length; j++){
-			texture.add(textures[j]);
+		while(true){
+			render();
+			logic();
+			if(CURRENT_STATE == LEAVING)
+				break;
 		}
+	}
+	
+	public void init(){
+		
 	}
 	
 	public void render(){
@@ -36,10 +50,34 @@ public abstract class Customer {
 		batcher.end();
 	}
 	
-	public void logic(float delta){
+	public void logic(){
 		pos.add(spd);
-		if(pos.x >= 60){
-			
+		if(!hasPayed){
+			if(pos.x >= 60){
+				CURRENT_STATE = WALKING;
+			}
+			else{
+				CURRENT_STATE = TALKING;
+			}
+		}
+		else{
+			CURRENT_STATE = LEAVING;
+		}
+		if(CURRENT_STATE == WALKING){
+			spd.x = -1;
+			frameIndex += delta*3;
+			if(frameIndex >= 3.8f){
+				frameIndex = 0;
+			}
+		}else if (CURRENT_STATE == TALKING) {
+			spd.x = 0;
+			frameIndex += delta*2;
+			if(frameIndex < 5){
+				frameIndex = 5;
+			}
+			if(frameIndex >= 6.9){
+				frameIndex = 5;
+			}
 		}
 	}
 }
