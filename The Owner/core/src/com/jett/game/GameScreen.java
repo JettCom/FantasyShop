@@ -44,10 +44,6 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void render(float delta) {
-		Gdx.app.log("Customer position.x: ", ""+customer.pos.x);
-		Gdx.app.log("Current customer state: ", ""+customer.CURRENT_STATE);
-		Gdx.app.log("Current customer paying status: ", ""+customer.hasPayed);
-		Gdx.app.log("Current customer frameIndex: ", ""+customer.frameIndex);
 		Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.graphics.getGL20().glClearColor(0.1f, 0.1f, 0.05f, 1);
 		player.render();
@@ -62,6 +58,8 @@ public class GameScreen implements Screen{
 		mainBatch.end();
 		if(fireSpriteIndex >= 6.5f)
 			fireSpriteIndex = 0;
+		if(customer.hasPayed)
+			customer = null;
 	}
 
 	@Override

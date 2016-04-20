@@ -16,9 +16,11 @@ public abstract class Customer{
 	public static final int WALKING = 1;
 	public static final int TALKING = 2;
 	public static final int LEAVING = 3;
-	public static int CURRENT_STATE;
+	public int CURRENT_STATE;
 	
 	public boolean hasPayed;
+	public boolean isRich;
+	
 	
 	public Vector3 pos = new Vector3();
 	public Vector3 spd = new Vector3();
