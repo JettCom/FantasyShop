@@ -14,13 +14,14 @@ public abstract class Customer{
 	public float frameIndex;
 	
 	public static final int WALKING = 1;
-	public static final int TALKING = 2;
+	public final int TALKING = 2;
 	public static final int LEAVING = 3;
 	public int CURRENT_STATE;
 	
 	public boolean hasPayed;
-	public boolean isRich;
+	public boolean isCheap;
 	
+	public float money;
 	
 	public Vector3 pos = new Vector3();
 	public Vector3 spd = new Vector3();
@@ -55,7 +56,7 @@ public abstract class Customer{
 	public void logic(){
 		pos.add(spd);
 		if(!hasPayed){
-			if(pos.x >= -25){
+			if(pos.x >= -35){
 				CURRENT_STATE = WALKING;
 			}
 			else{
