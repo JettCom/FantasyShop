@@ -6,8 +6,11 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.Array;
 
 public class GameScreen implements Screen{
@@ -23,13 +26,21 @@ public class GameScreen implements Screen{
 	
 	public boolean paymentChoice;
 	
-	public float shopMoney = 3000;
+	public FreeTypeFontGenerator fontGenerator;
+	public FreeTypeFontParameter fontParameter;
+	public BitmapFont font;
+	
+	public int shopMoney = 3000;
 	public float dayTime;
 	public float fireSpriteIndex;
 	
 	public Customer customer;
 	
 	public GameScreen(){
+		fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Chava-Regular.ttf"));
+		fontParameter = new FreeTypeFontParameter();
+		fontParameter.size = 10;
+		font = fontGenerator.generateFont(fontParameter);
 		mainBatch = new SpriteBatch();
 		player = new Player(-50,0);
 		cam = new OrthographicCamera(16*10,9*10);
@@ -78,6 +89,7 @@ public class GameScreen implements Screen{
 		}
 		// UI
 		mainBatch.begin();
+		font.draw(mainBatch, "Gold: " + shopMoney, -80, 44);
 		if(paymentChoice){
 			mainBatch.draw(choiceBanner, -16,-16);
 			if(Gdx.input.isKeyJustPressed(Keys.G)){
@@ -94,9 +106,6 @@ public class GameScreen implements Screen{
 			}
 			if(Gdx.input.isKeyJustPressed(Keys.H)){
 				// Help
-			}
-			if(Gdx.input.isKeyJustPressed(Keys.E)){
-				// Leave
 			}
 		}
 		mainBatch.end();

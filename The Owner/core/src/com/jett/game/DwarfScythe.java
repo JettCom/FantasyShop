@@ -11,6 +11,8 @@ public class DwarfScythe extends Customer{
 	
 	@Override
 	public void init(){
+		money = (float) (Math.random()*300);
+		isCheap = Math.random() < 0.5f;
 		textures.add(new Texture(Gdx.files.internal("Scythe1.png")));
 		textures.add(new Texture(Gdx.files.internal("Scythe2.png")));
 		textures.add(new Texture(Gdx.files.internal("Scythe3.png")));

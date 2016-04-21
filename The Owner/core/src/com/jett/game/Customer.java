@@ -82,5 +82,11 @@ public abstract class Customer{
 				frameIndex = 5;
 			}
 		}
+		else{
+			spd.x = -0.08f;
+			frameIndex += delta*3;
+			if(frameIndex > 3.8f)
+				frameIndex = 0;
+		}
 	}
 }
