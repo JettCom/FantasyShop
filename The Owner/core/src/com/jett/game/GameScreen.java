@@ -1,8 +1,10 @@
 package com.jett.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -36,8 +38,15 @@ public class GameScreen implements Screen{
 	
 	public Customer customer;
 	
+	public Blackboard blackboard;
+	public ArrayList<Favor> initialFavors = new ArrayList<Favor>();
+	// THERE SHOULD ONLY BE THREE FAVORS AT ONCE. IT WONT BREAK OTHERWISE, BUT IT WILL BECOME DIFFICULT
+	
 	public GameScreen(){
-		fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Chava-Regular.ttf"));
+		initialFavors.add(new Favor(1,"Get 50 logs of wood."));
+		initialFavors.add(new Favor(2, "Find a hammer"));
+		blackboard = new Blackboard(initialFavors);
+		fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Coolville.ttf"));
 		fontParameter = new FreeTypeFontParameter();
 		fontParameter.size = 10;
 		font = fontGenerator.generateFont(fontParameter);
