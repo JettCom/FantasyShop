@@ -19,6 +19,8 @@ public class DwarfScythe extends Customer{
 		textures.add(new Texture(Gdx.files.internal("Scythe4.png")));
 		textures.add(new Texture(Gdx.files.internal("Scythe5.png")));
 		textures.add(new Texture(Gdx.files.internal("Scythe6.png")));
+		if(money <= 50)
+			money = (float) (Math.random()*300);
 	}
 	
 }

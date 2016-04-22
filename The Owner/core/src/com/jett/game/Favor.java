@@ -4,7 +4,7 @@ public class Favor {
 	
 	public int id;
 	public String name;
-	public boolean isDone;
+	public boolean isDone = false;
 	
 	public Favor(int id, String name){
 		id = this.id;

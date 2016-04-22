@@ -67,7 +67,7 @@ public abstract class Customer{
 			CURRENT_STATE = LEAVING;
 		}
 		if(CURRENT_STATE == WALKING){
-			spd.x = -0.1f;
+			spd.x = -0.2f;
 			frameIndex += delta*3;
 			if(frameIndex >= 3.8f){
 				frameIndex = 0;

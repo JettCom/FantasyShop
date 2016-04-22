@@ -25,6 +25,7 @@ public class GameScreen implements Screen{
 	public Array<Sprite> fireSprites;
 	public Sprite bartableSprite;
 	public Texture choiceBanner;
+	public Texture blackboardTex;
 	
 	public boolean paymentChoice;
 	
@@ -37,18 +38,17 @@ public class GameScreen implements Screen{
 	public float fireSpriteIndex;
 	
 	public Customer customer;
-	
-	public Blackboard blackboard;
-	public ArrayList<Favor> initialFavors = new ArrayList<Favor>();
-	// THERE SHOULD ONLY BE THREE FAVORS AT ONCE. IT WONT BREAK OTHERWISE, BUT IT WILL BECOME DIFFICULT
+
+	public ArrayList<String> favors;
 	
 	public GameScreen(){
-		initialFavors.add(new Favor(1,"Get 50 logs of wood."));
-		initialFavors.add(new Favor(2, "Find a hammer"));
-		blackboard = new Blackboard(initialFavors);
+		favors = new ArrayList<String>();
+		favors.add("Get 50 logs of wood.");
+		favors.add("Find a hammer");
+		blackboardTex = new Texture(Gdx.files.internal("Blackboard.png"));
 		fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Coolville.ttf"));
 		fontParameter = new FreeTypeFontParameter();
-		fontParameter.size = 10;
+		fontParameter.size = 9;
 		font = fontGenerator.generateFont(fontParameter);
 		mainBatch = new SpriteBatch();
 		player = new Player(-50,0);
@@ -71,6 +71,7 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void render(float delta) {
+		Gdx.app.log("blackboard favors: ", ""+favors.size());
 		if(customer != null){
 			if(customer.CURRENT_STATE == customer.TALKING){
 				paymentChoice = true;
@@ -82,7 +83,7 @@ public class GameScreen implements Screen{
 			}
 		}
 		Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Gdx.graphics.getGL20().glClearColor(0.1f, 0.1f, 0.05f, 1);
+		Gdx.graphics.getGL20().glClearColor(0.05f, 0.05f, 0.05f, 1);
 		player.render();
 		player.logic(delta);
 		fireSpriteIndex += delta*5;
@@ -98,6 +99,9 @@ public class GameScreen implements Screen{
 		}
 		// UI
 		mainBatch.begin();
+		mainBatch.draw(blackboardTex, -blackboardTex.getWidth()/2, -blackboardTex.getHeight()/2);
+		Gdx.app.log("favor 1 name: ",favors.get(1).name); // Returns: favor 1 name: null
+		//font.draw(mainBatch, favors.get(1).name, -blackboardTex.getWidth()/2+5, blackboardTex.getHeight()/2-5);
 		font.draw(mainBatch, "Gold: " + shopMoney, -80, 44);
 		if(paymentChoice){
 			mainBatch.draw(choiceBanner, -16,-16);
@@ -105,11 +109,9 @@ public class GameScreen implements Screen{
 				// Gold
 				if(customer.isCheap){
 					shopMoney += customer.money/4;
-					customer.money /= 4;
 				}	
 				else{
 					shopMoney += customer.money;
-					customer.money = 0;
 				}
 				customer.hasPayed = true;
 			}
