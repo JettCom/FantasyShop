@@ -27,6 +27,7 @@ public abstract class Customer{
 	public Vector3 spd = new Vector3();
 	
 	public float delta;
+	public float actionsPerSecond;
 	
 	public ArrayList<Texture> textures = new ArrayList<Texture>();
 	
@@ -35,12 +36,6 @@ public abstract class Customer{
 		batcher = new SpriteBatch();
 		pos.x = x;
 		pos.y = y;
-		/*while(true){
-			render();
-			logic();
-			if(CURRENT_STATE == LEAVING)
-				break;
-		}*/
 	}
 	
 	public void init(){

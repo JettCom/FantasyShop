@@ -25,7 +25,7 @@ public class GameScreen implements Screen{
 	public Array<Sprite> fireSprites;
 	public Sprite bartableSprite;
 	public Texture choiceBanner;
-	public Texture blackboardTex;
+	public Sprite blackboard;
 	
 	public boolean paymentChoice;
 	
@@ -37,15 +37,21 @@ public class GameScreen implements Screen{
 	public float dayTime;
 	public float fireSpriteIndex;
 	
+	public Sprite blackboardButton;
+	public boolean blackboardOpen;
+	
 	public Customer customer;
 
-	public ArrayList<String> favors;
+	public ArrayList<Favor> favors;
 	
 	public GameScreen(){
-		favors = new ArrayList<String>();
-		favors.add("Get 50 logs of wood.");
-		favors.add("Find a hammer");
-		blackboardTex = new Texture(Gdx.files.internal("Blackboard.png"));
+		favors = new ArrayList<Favor>();
+		favors.add(new Favor("Get 50 logs of birch wood", 50));
+		favors.add(new Favor("Find a hammer", 1));
+		blackboard = new Sprite(new Texture(Gdx.files.internal("Blackboard.png")));
+		blackboard.setPosition(-blackboard.getWidth()/2, -blackboard.getHeight()/2);
+		blackboard.setScale(0.09f);
+		blackboard.rotate(-0.3f);
 		fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Coolville.ttf"));
 		fontParameter = new FreeTypeFontParameter();
 		fontParameter.size = 9;
@@ -99,9 +105,6 @@ public class GameScreen implements Screen{
 		}
 		// UI
 		mainBatch.begin();
-		mainBatch.draw(blackboardTex, -blackboardTex.getWidth()/2, -blackboardTex.getHeight()/2);
-		Gdx.app.log("favor 1 name: ",favors.get(1).name); // Returns: favor 1 name: null
-		//font.draw(mainBatch, favors.get(1).name, -blackboardTex.getWidth()/2+5, blackboardTex.getHeight()/2-5);
 		font.draw(mainBatch, "Gold: " + shopMoney, -80, 44);
 		if(paymentChoice){
 			mainBatch.draw(choiceBanner, -16,-16);
@@ -117,7 +120,13 @@ public class GameScreen implements Screen{
 			}
 			if(Gdx.input.isKeyJustPressed(Keys.H)){
 				// Help
+				
 			}
+		}
+		blackboard.draw(mainBatch);
+		font.draw(mainBatch, "To-Do", -70, 40);
+		for(int i = 0; i < favors.size(); i++){
+			font.draw(mainBatch, favors.get(i).name, -70, 25-i*10);
 		}
 		mainBatch.end();
 		if(fireSpriteIndex >= 6.5f){
