@@ -77,6 +77,12 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void render(float delta) {
+		try {
+			Thread.sleep((long)(1000/30-Gdx.graphics.getDeltaTime()));
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(Gdx.input.isKeyJustPressed(Keys.B))
 			blackboardOpen = !blackboardOpen;
 		if(customer != null){
