@@ -47,6 +47,9 @@ public class GameScreen implements Screen{
 	public ArrayList<Favor> favors;
 	
 	public GameScreen(){
+		customerSelection = new ArrayList<Customer>();
+		customerSelection.add(new DwarfScythe(80,0));
+		customerSelection.add(new DwarfScythe(80,0));
 		favors = new ArrayList<Favor>();
 		favors.add(new Favor("Get 50 logs of birch wood", 50));
 		favors.add(new Favor("Find a hammer", 1));
@@ -83,7 +86,8 @@ public class GameScreen implements Screen{
 			respawnCustomer -= delta;
 		}
 		else{
-			
+			// You left off here
+			customer = customerSelection.get((int)MathUtils.round((float)Math.random()*customerSelection.size()));
 		}
 		if(Gdx.input.isKeyJustPressed(Keys.B))
 			blackboardOpen = !blackboardOpen;

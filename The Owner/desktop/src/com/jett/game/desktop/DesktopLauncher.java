@@ -7,10 +7,10 @@ import com.jett.game.Main;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1280;
-		config.height = 720;
+		config.width = 1900;
+		config.height = 1080;
 		config.title = "Fantasy Sim Game";
-		config.resizable = true;
+		config.fullscreen = false;
 		new LwjglApplication(new Main(), config);
 	}
 }
