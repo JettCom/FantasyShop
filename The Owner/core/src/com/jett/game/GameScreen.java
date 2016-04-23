@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
 public class GameScreen implements Screen{
@@ -37,7 +38,6 @@ public class GameScreen implements Screen{
 	public float dayTime;
 	public float fireSpriteIndex;
 	
-	public Sprite blackboardButton;
 	public boolean blackboardOpen;
 	
 	public Customer customer;
@@ -77,7 +77,8 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void render(float delta) {
-		Gdx.app.log("blackboard favors: ", ""+favors.size());
+		if(Gdx.input.isKeyJustPressed(Keys.B))
+			blackboardOpen = !blackboardOpen;
 		if(customer != null){
 			if(customer.CURRENT_STATE == customer.TALKING){
 				paymentChoice = true;
@@ -89,7 +90,7 @@ public class GameScreen implements Screen{
 			}
 		}
 		Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Gdx.graphics.getGL20().glClearColor(0.05f, 0.05f, 0.05f, 1);
+		Gdx.graphics.getGL20().glClearColor(0.5f, 0.5f, 0.5f, 1f);
 		player.render();
 		player.logic(delta);
 		fireSpriteIndex += delta*5;
@@ -120,13 +121,25 @@ public class GameScreen implements Screen{
 			}
 			if(Gdx.input.isKeyJustPressed(Keys.H)){
 				// Help
-				
+				if(favors.size() > 0){
+					if(paymentChoice){
+						favors.remove(MathUtils.round((float)Math.random() * favors.size()));
+					}
+				}
+				customer.hasPayed = true;
 			}
 		}
-		blackboard.draw(mainBatch);
-		font.draw(mainBatch, "To-Do", -70, 40);
+		Gdx.app.log("Randomized: ",""+MathUtils.round((float)Math.random() * favors.size()));
+		if(blackboardOpen){
+			blackboard.draw(mainBatch);
+			font.draw(mainBatch, "To-Do", -70, 40);
+		}
 		for(int i = 0; i < favors.size(); i++){
-			font.draw(mainBatch, favors.get(i).name, -70, 25-i*10);
+			if(blackboardOpen)
+				font.draw(mainBatch, favors.get(i).name, -70, 25-i*10);
+			if(favors.get(i).quantity <= 0){
+				favors.remove(i);
+			}
 		}
 		mainBatch.end();
 		if(fireSpriteIndex >= 6.5f){
