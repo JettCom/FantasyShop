@@ -2,6 +2,7 @@ package com.jett.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 
 public class DwarfScythe extends Customer{
 	
@@ -20,8 +21,8 @@ public class DwarfScythe extends Customer{
 		textures.add(new Texture(Gdx.files.internal("Scythe4.png")));
 		textures.add(new Texture(Gdx.files.internal("Scythe5.png")));
 		textures.add(new Texture(Gdx.files.internal("Scythe6.png")));
-		if(money <= 50)
-			money = (float) (Math.random()*300);
+		if(money <= 100)
+			money = MathUtils.round((float)Math.random()*300);
 	}
 	
 }

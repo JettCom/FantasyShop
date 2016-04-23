@@ -35,6 +35,7 @@ public class GameScreen implements Screen{
 	public BitmapFont font;
 	
 	public int shopMoney = 3000;
+	public float respawnCustomer;
 	public float dayTime;
 	public float fireSpriteIndex;
 	
@@ -77,6 +78,12 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void render(float delta) {
+		if(respawnCustomer > 0){
+			respawnCustomer -= delta;
+		}
+		else{
+			
+		}
 		if(Gdx.input.isKeyJustPressed(Keys.B))
 			blackboardOpen = !blackboardOpen;
 		if(customer != null){
@@ -86,9 +93,16 @@ public class GameScreen implements Screen{
 			customer.delta = delta;
 			if(customer.hasPayed){
 				paymentChoice = false;
+				customer.CURRENT_STATE = customer.LEAVING;
+			}
+		}
+		if(customer != null){
+			if(customer.pos.x <= -100){
 				customer = null;
 			}
 		}
+		else
+			respawnCustomer = (float)Math.random()*3;
 		Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.graphics.getGL20().glClearColor(0.5f, 0.5f, 0.5f, 1f);
 		player.render();

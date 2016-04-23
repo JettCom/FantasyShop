@@ -15,7 +15,7 @@ public abstract class Customer{
 	
 	public static final int WALKING = 1;
 	public final int TALKING = 2;
-	public static final int LEAVING = 3;
+	public final int LEAVING = 3;
 	public int CURRENT_STATE;
 	
 	public boolean hasPayed;
@@ -78,7 +78,7 @@ public abstract class Customer{
 			}
 		}
 		else{
-			spd.x = -0.08f;
+			spd.x = -0.2f;
 			frameIndex += delta*3;
 			if(frameIndex > 3.8f)
 				frameIndex = 0;
