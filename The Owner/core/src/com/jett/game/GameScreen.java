@@ -41,6 +41,7 @@ public class GameScreen implements Screen{
 	
 	public boolean blackboardOpen;
 	
+	public ArrayList<Customer> customerSelection;
 	public Customer customer;
 
 	public ArrayList<Favor> favors;
